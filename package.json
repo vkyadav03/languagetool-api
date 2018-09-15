@@ -1,0 +1,22 @@
+{
+  "name": "languagetool-api",
+  "version": "1.0.2",
+  "description": "Node.JS wrapper for Languagetool API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "languagetool.info();"
+  },
+  "keywords": [
+    "languagetool",
+    "wrapper",
+    "spellcheck",
+    "spell-check",
+    "grammar",
+    "spelling"
+  ],
+  "author": "Maciej 'P0le' Pedzich",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
