@@ -10,29 +10,28 @@ After you install package, make sure to require it!
 const languagetool = require("languagetool-api");
 ```
 
-**SETUP IN YOUR .JS FILE**
+**USAGE:**
 
-languagetool-api needs to know language code, in order to work properly. You set language with:
+`languagetool.check()` takes 3 arguments:
+
+1. language code
+2. text to check
+3. callback function
+
+Here's an example:
 
 ```js
-languagetool.setLanguage("pl-PL"); // If you don't know language codes, try languagetool.languageCodes(), to get full list of codes.
-```
 
-After that, you're good to check spelling. Here's how you do this:
+languagetool.check("pl-PL", "piekasz", function(err, res){
+  if(err){
+     console.log("An error has occurred!");
+  } else{
+     console.log(res)
+  }
+}); 
 
-```js
-
-languagetool.check("piekasz"); 
-
-/* 
-
-Piekasz is incorrect! You should get output like this:
-
-Mistake detected (piekasz)
-Did you mean: piekarz?
- 
-*/
-
+// The above callback will responde with error message or object.
+// Also, piekasz is still incorrect!
 
 ```
 

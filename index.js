@@ -1,35 +1,15 @@
 const pkg_info = require("./package.json"),
       request  = require("request"),
-      export_obj = {};
+	  export_obj = {};
 	  
 let lng = null
 	 
-export_obj.setLanguage = function(language_code){
+export_obj.check = function(language_code ,text, callback){
 	lng = language_code
-}
-
-export_obj.check = function(text){
 	let url = encodeURI("https://languagetool.org/api/v2/check?language=" + lng + "&text=" + text);
 	request(url, function(error, response, body){
-		if(!error && response.statusCode == 200){
-		   var output = JSON.parse(body);
-		   if(output.matches.length == 0){
-			  console.log("Your spelling was correct.");
-		   } else{
-			  output.matches.forEach(function(match){
-				  console.log("Mistake detected" + " (" + text.substr(match.offset, match.length) + ")");
-				  if(match.replacements.length != 0){
-				     console.log("Did you mean: " + match.replacements[0].value + "?");
-				  } else{
-					 console.log("There are no suggestions avalible.")
-				  }
-			  });			  
-		   }
-		   console.log(" ");
-		   console.log("This wrapper was made for " + output.software.name + " (current version: " + output.software.version + ")");
-		} else{
-		   console.log(error);
-		}
+		var output = JSON.parse(body);
+		callback(error, output);
 	})
 }
 
