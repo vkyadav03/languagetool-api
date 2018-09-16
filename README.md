@@ -12,27 +12,41 @@ const languagetool = require("languagetool-api");
 
 **USAGE:**
 
-`languagetool.check()` takes 3 arguments:
+`languagetool.check()` takes 2 arguments:
 
-1. language code (if you don't know code of your language, try `languagetool.codes()`, to get full list of language codes)
-2. text to check
-3. callback function
+1. Object with request parameters (for more details see: **check() object params**)
+2. Callback function
 
 Here's an example:
 
 ```js
+const languagetool = require("languagetool-api");
 
-languagetool.check("pl-PL", "piekasz", function(err, res){
-  if(err){
-     console.log("An error has occurred!");
-  } else{
-     console.log(res)
-  }
-}); 
+var params = {
+  language: "pl-PL", // This is required!
+  text: "Piekasz", // This is required too!
+  disabledRules: ["CASING", "PUNCTUATION"] // This is optional.
+};
 
-// The above callback will responde with error message or object.
-// Also, piekasz is still incorrect!
-
+languagetool.check(params, function(err, res){
+	if(err){
+	   console.log(err);
+	} else{
+	   console.log(res);
+	}
+});
 ```
 
-NOTE: This wrapper utilizes *request* package, that is required for languagetool-api to work properly. Github repository doesn't provide it, but package on npmjs.com does.
+**check() object params**
+
+As you know, `check()` function needs object with parameters. They're listed and compared below:
+
+|  Name        |   Required?       | Type      |Description      |Example                  |
+|--------------|-------------------|-----------|-----------------|-------------------------|
+|language      |yes                | string    |Code of language |pl-PL                    |
+|text          |yes                | string    |Text to check    |Piekasz                  |
+|disabledRules |no                 | array     |Array of rule IDs|["CASING", "PUNCTUATION"]|
+
+**NOTE:** 
+This wrapper utilizes *request* package, that is required for languagetool-api to work properly. Github repository doesn't provide it, but package on npmjs.com does. If you got this package from Github, make sure to install the *request* package with:
+`npm install request`

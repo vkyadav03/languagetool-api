@@ -1,16 +1,32 @@
 const pkg_info = require("./package.json"),
       request  = require("request"),
 	  export_obj = {};
-	  
-let lng = null
-	 
-export_obj.check = function(language_code ,text, callback){
-	lng = language_code
-	let url = encodeURI("https://languagetool.org/api/v2/check?language=" + lng + "&text=" + text);
-	request(url, function(error, response, body){
-		var output = JSON.parse(body);
-		callback(error, output);
-	})
+	  	 
+export_obj.check = function(obj, callback){
+	let url = encodeURI("https://languagetool.org/api/v2/check?language=" + obj.language + "&text=" + obj.text);
+	if(obj.disabledRules != undefined){
+	  if(Array.isArray(obj.disabledRules) == true){
+		  url = url + "&disabledRules="
+		  obj.disabledRules.forEach(function(rule, ruleI){
+			if(ruleI != obj.disabledRules.length - 1){
+			   url = url + rule + ","
+			} else{
+			   url = url + rule
+			}
+		  })
+		  request(url, function(error, response, body){
+		    var output = JSON.parse(body);
+		    callback(error, output);
+	      })
+	  } else{
+		  return "Error: disabledRules is not an array!"
+	  }
+	} else{
+	   request(url, function(error, response, body){
+		  var output = JSON.parse(body);
+		  callback(error, output);
+	   })
+	}
 }
 
 export_obj.codes = function(){
