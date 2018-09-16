@@ -14,7 +14,7 @@ const languagetool = require("languagetool-api");
 
 `languagetool.check()` takes 3 arguments:
 
-1. language code
+1. language code (if you don't know code of your language, try `languagetool.codes()`, to get full list of language codes)
 2. text to check
 3. callback function
 
@@ -34,7 +34,3 @@ languagetool.check("pl-PL", "piekasz", function(err, res){
 // Also, piekasz is still incorrect!
 
 ```
-
-**NOTE:**
-
-This wrapper is in early phase of development, currently it has very basic functionality. It also relies on [LanguageTool HTTP API](http://wiki.languagetool.org/public-http-api), be aware of its eventual limitations.

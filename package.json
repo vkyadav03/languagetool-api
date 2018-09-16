@@ -1,10 +1,18 @@
 {
   "name": "languagetool-api",
-  "version": "1.0.2",
-  "description": "Node.JS wrapper for Languagetool API.",
+  "version": "1.0.5",
+  "description": "Node.JS wrapper for LanguageTool",
   "main": "index.js",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "languagetool.info();"
+    "test": "languagetool.info()"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/P0le/languagetool-api-wrapper.git"
   },
   "keywords": [
     "languagetool",
@@ -16,7 +24,8 @@
   ],
   "author": "Maciej 'P0le' Pedzich",
   "license": "ISC",
-  "dependencies": {
-    "request": "^2.88.0"
-  }
+  "bugs": {
+    "url": "https://github.com/P0le/languagetool-api-wrapper/issues"
+  },
+  "homepage": "https://github.com/P0le/languagetool-api-wrapper#readme"
 }

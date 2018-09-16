@@ -1,6 +1,6 @@
 const pkg_info = require("./package.json"),
       request  = require("request"),
-      export_obj = {};
+	  export_obj = {};
 	  
 let lng = null
 	 
@@ -13,7 +13,7 @@ export_obj.check = function(language_code ,text, callback){
 	})
 }
 
-export_obj.languageCodes = function(){
+export_obj.codes = function(){
 	request("https://languagetool.org/api/v2/languages", function(error, response, body){
 		var language_list = JSON.parse(body);
 		language_list.forEach(function(language){
