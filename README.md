@@ -34,3 +34,5 @@ languagetool.check("pl-PL", "piekasz", function(err, res){
 // Also, piekasz is still incorrect!
 
 ```
+
+NOTE: This wrapper utilizes *request* package, that is required for languagetool-api to work properly. Github repository doesn't provide it, but package on npmjs.com does.
