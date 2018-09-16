@@ -23,7 +23,7 @@
     "spelling"
   ],
   "author": "Maciej 'P0le' Pedzich",
-  "license": "ISC",
+  "license": "BSD 2-clause",
   "bugs": {
     "url": "https://github.com/P0le/languagetool-api-wrapper/issues"
   },
