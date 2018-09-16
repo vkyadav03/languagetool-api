@@ -43,8 +43,8 @@ As you know, `check()` function needs object with parameters. They're listed and
 
 |  Name        |   Required?       | Type      |Description      |Example                  |
 |--------------|-------------------|-----------|-----------------|-------------------------|
-|language      |yes                | string    |Code of language |pl-PL                    |
-|text          |yes                | string    |Text to check    |Piekasz                  |
+|language      |yes                | string    |Code of language |"pl-PL"                  |
+|text          |yes                | string    |Text to check    |"Piekasz"                |
 |disabledRules |no                 | array     |Array of rule IDs|["CASING", "PUNCTUATION"]|
 
 **NOTE:** 
