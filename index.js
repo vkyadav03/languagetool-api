@@ -1,6 +1,6 @@
 const pkg_info = require("./package.json"),
       request  = require("request"),
-	  export_obj = {};
+      export_obj = {};
 	  	 
 export_obj.check = function(obj, callback){
 	let url = encodeURI("https://languagetool.org/api/v2/check?language=" + obj.language + "&text=" + obj.text);
