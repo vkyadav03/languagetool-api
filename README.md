@@ -47,6 +47,7 @@ As you know, `check()` function needs object with parameters. They're listed and
 |text          |yes                | string    |Text to check    |"Piekasz"                |
 |disabledRules |no                 | array     |Array of rule IDs|["CASING", "PUNCTUATION"]|
 
+
 **NOTE:** 
 This wrapper utilizes *request* package, that is required for languagetool-api to work properly. Github repository doesn't provide it, but package on npmjs.com does. If you got this package from Github, make sure to install the *request* package with:
 `npm install request`
