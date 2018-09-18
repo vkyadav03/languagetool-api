@@ -81,7 +81,7 @@ languagetool.check(params, function(err, res){
 	} else{
 	   languagetool.bestSuggestion(res, function(arr){
 	     arr.forEach(function(item){
-	       console.log("Best suggestion for " + item.mistake " is " + item.bestSuggestion);
+	       console.log("Best suggestion for " + item.mistake + " is " + item.bestSuggestion);
 	     });
 	   });
 	};
