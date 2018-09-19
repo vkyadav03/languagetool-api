@@ -19,8 +19,8 @@ export_obj.check = function(obj, callback){
 	 } else if(obj.disabledRules == undefined){
          sendRequest();
 	 } else{
-		 console.log("languagetool-api error: disabledRules is not an array!");
-		 return console.log("Checking aborted!");
+		 console.log("Error: disabledRules is not an array!");
+		 return console.log("Operation aborted!");
 	 } 
     function sendRequest(){
 	  request(url, function(error, response, body){
@@ -75,17 +75,22 @@ export_obj.createReport = function(obj){
 		sentence: obj.matches[0].sentence,
 		mistakes: mistakes 
 	}
-    if(fs.existsSync("./reports") == true){
-		console.log("Creating report file...");
-		fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
-		return console.log("Report file created successfully!");
+	if(obj.matches[0].sentence != undefined){
+	   if(fs.existsSync("./reports") == true){
+		  console.log("Creating report file...");
+		  fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
+		  return console.log("Report file created successfully!");
+	   } else{
+		  console.log("Creating 'reports' directory...");
+		  fs.mkdirSync("./reports");
+		  console.log("Directory created successfully!");
+		  console.log("Creating report file...");
+		  fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
+		  return console.log("Report file created successfully!");
+	   }
 	} else{
-		console.log("Creating 'reports' directory...");
-		fs.mkdirSync("./reports");
-		console.log("Directory created successfully!");
-		console.log("Creating report file...");
-		fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
-		return console.log("Report file created successfully!");
+		console.log("There's nothing to report.");
+		return console.log("Opertation aborted!")
 	}	
 }
 
