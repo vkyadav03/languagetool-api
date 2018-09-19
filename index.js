@@ -72,10 +72,8 @@ export_obj.createReport = function(obj){
 	var data = {
 		reportDate: dateFormat(now, "dd.mm.yyyy (hh:MM:ss)"),
 		language: obj.language.name + " (" + obj.language.code + ")",
-		sentence: obj.matches[0].sentence,
 		mistakes: mistakes 
 	}
-	if(obj.matches[0].sentence != undefined){
 	   if(fs.existsSync("./reports") == true){
 		  console.log("Creating report file...");
 		  fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
@@ -87,11 +85,7 @@ export_obj.createReport = function(obj){
 		  console.log("Creating report file...");
 		  fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
 		  return console.log("Report file created successfully!");
-	   }
-	} else{
-		console.log("There's nothing to report.");
-		return console.log("Opertation aborted!")
-	}	
+	   }	
 }
 
 export_obj.codes = function(){
