@@ -101,7 +101,7 @@ languagetool.check(params, function(err, res){
 	if(err){
 	   console.log(err);
 	} else{
-       languagetool.createReport(res);
+           languagetool.createReport(res);
 	};
 });
 ```
