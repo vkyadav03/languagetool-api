@@ -1,5 +1,7 @@
-const pkg_info = require("./package.json"),
-      request  = require("request"),
+const pkg_info   = require("./package.json"),
+      dateFormat = require("dateformat"),
+      fs         = require("fs"),
+      request    = require("request"),
 	  export_obj = {};
 	  	 
 export_obj.check = function(obj, callback){
@@ -18,7 +20,7 @@ export_obj.check = function(obj, callback){
          sendRequest();
 	 } else{
 		 console.log("languagetool-api error: disabledRules is not an array!");
-		 return "Checking aborted!"
+		 return console.log("Checking aborted!");
 	 } 
     function sendRequest(){
 	  request(url, function(error, response, body){
@@ -45,6 +47,46 @@ export_obj.bestSuggestion = function(obj, callback){
 		});
 	});
 	callback(suggestions);
+}
+
+export_obj.createReport = function(obj){
+	var now = new Date();
+	var dateCreated = dateFormat(now, "dd-mm-yyyy-hh-MM-ss");
+	var filename = dateCreated + ".json";
+	var mistakes = [];
+	var suggestions = [];
+    obj.matches.forEach(function(item){
+		var mistake = {
+		   issue: item.rule.issueType,
+		   content: item.context.text.substr(item.context.offset, item.context.length),
+		   suggestions: suggestions,
+		};
+	    item.replacements.forEach(function(suggestion, index){
+		  suggestions.push(suggestion.value);
+		  if(index == item.replacements.length - 1){
+			suggestions = [];
+		  }
+	    });
+        mistakes.push(mistake);		
+    });
+	var data = {
+		reportDate: dateFormat(now, "dd.mm.yyyy (hh:MM:ss)"),
+		language: obj.language.name + " (" + obj.language.code + ")",
+		sentence: obj.matches[0].sentence,
+		mistakes: mistakes 
+	}
+    if(fs.existsSync("./reports") == true){
+		console.log("Creating report file...");
+		fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
+		return console.log("Report file created successfully!");
+	} else{
+		console.log("Creating 'reports' directory...");
+		fs.mkdirSync("./reports");
+		console.log("Directory created successfully!");
+		console.log("Creating report file...");
+		fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
+		return console.log("Report file created successfully!");
+	}	
 }
 
 export_obj.codes = function(){

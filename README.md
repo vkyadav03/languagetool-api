@@ -2,9 +2,11 @@ LanguageTool is **the best** choice, for your grammar/spell checking apps, check
 
 **INSTALLATION:**
 
-`npm install languagetool-api`
+```
+$ npm install languagetool-api
+```
 
-After you install package, make sure to require it!
+After you install package, make sure to require it in your application!
 
 ```js
 const languagetool = require("languagetool-api");
@@ -51,7 +53,7 @@ As you know, `check()` function needs object with parameters. They're listed and
 
 **languagetool.showMistakes(res, callback)**
 
-`languagetool.showMistakes` should take `res` from `langaugetool.check` and return array of mistakes (as strings).
+`languagetool.showMistakes` should take `res` from `langaugetool.check` and give you access array of mistakes (as strings).
 
 Here's an example:
 ```js
@@ -70,7 +72,7 @@ languagetool.check(params, function(err, res){
 
 **languagetool.bestSuggestion(res, callback)**
 
-This function should also take `res` from `languagetool.check`, and return an array of objects with properties: `mistake` (string), and `bestSuggestion` (also string).
+This function should also take `res` from `languagetool.check`, and give you access to array of objects with properties: `mistake` (string), and `bestSuggestion` (also string).
 
 Here's an example:
 
@@ -88,6 +90,21 @@ languagetool.check(params, function(err, res){
 });
 ```
 
+**languagetool.createReport(res)**
+
+This function creates *.json* file, with details about mistakes, language, suggestions etc.
+
+As always, here's an example:
+
+```js 
+languagetool.check(params, function(err, res){
+	if(err){
+	   console.log(err);
+	} else{
+       languagetool.createReport(res);
+	};
+});
+```
+
 **NOTE:** 
-This wrapper utilizes *request* package, that is required for languagetool-api to work properly. Github repository doesn't provide it, but package on npmjs.com does. If you got this package from Github, make sure to install the *request* package with:
-`npm install request`
+This wrapper utilizes other packages, that are required for languagetool-api to work properly. Github repository doesn't provide them, but package on npmjs.com does. If you got this package from Github, make sure to install them. Packages are listed in package.json file (see: "dependencies").
