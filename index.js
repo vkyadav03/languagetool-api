@@ -51,7 +51,7 @@ export_obj.bestSuggestion = function(obj, callback){
 
 export_obj.createReport = function(obj){
 	var now = new Date();
-	var dateCreated = dateFormat(now, "dd-mm-yyyy-hh-MM-ss");
+	var dateCreated = dateFormat(now, "dd-mm-yyyy");
 	var filename = dateCreated + ".json";
 	var mistakes = [];
 	var suggestions = [];
@@ -70,22 +70,39 @@ export_obj.createReport = function(obj){
         mistakes.push(mistake);		
     });
 	var data = {
-		reportDate: dateFormat(now, "dd.mm.yyyy (hh:MM:ss)"),
+		reportDate: dateFormat(now, "dd.mm.yyyy (hh:MM)"),
 		language: obj.language.name + " (" + obj.language.code + ")",
 		mistakes: mistakes 
 	}
-	   if(fs.existsSync("./reports") == true){
+	if(fs.existsSync("./reports") == true){
+	  if(fs.existsSync("./reports/" + filename) != true){
+	     console.log("Creating report file...");
+	     makeFile();
+	  } else{
+		 console.log("Overwriting report file...");
+	  }	
+	  makeFile();	 
+	} else{
+	   fs.mkdirSync("./reports");
+	   console.log("'reports' directory created successfully!");
+	   if(fs.existsSync(filename) != true){
 		  console.log("Creating report file...");
-		  fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
-		  return console.log("Report file created successfully!");
 	   } else{
-		  console.log("Creating 'reports' directory...");
-		  fs.mkdirSync("./reports");
-		  console.log("Directory created successfully!");
-		  console.log("Creating report file...");
-		  fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
-		  return console.log("Report file created successfully!");
-	   }	
+		  console.log("Overwriting report file...");
+	   }
+	   makeFile();
+	}
+    function makeFile(){
+	    fs.writeFileSync("./reports/" + filename, JSON.stringify(data));
+	    return console.log("Report file " + filename + " has been saved!");
+	}	
+}
+
+export_obj.getReportFrom = function(obj, callback){
+	fs.readFile("./reports/" + obj.day + "-" + obj.month + "-" + obj.year + ".json", {encoding: "utf8"} ,function(err, file){
+		var parsedFile = JSON.parse(file);
+		callback(err, parsedFile);
+	});
 }
 
 export_obj.codes = function(){
@@ -100,7 +117,11 @@ export_obj.codes = function(){
 export_obj.info = function(){
 	console.log(pkg_info.name + " by: " + pkg_info.author);
 	console.log("Current version: " + pkg_info.version);
-	console.log("Source code: " + pkg_info.repository.url);
+	return console.log("Source code: " + pkg_info.repository.url);
 }
 
 module.exports = export_obj
+
+function newFunction(file) {
+	return JSON.parse(file);
+}
