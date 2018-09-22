@@ -53,7 +53,7 @@ As you know, `check()` function needs object with parameters. They're listed and
 
 **languagetool.showMistakes(res, callback)**
 
-`languagetool.showMistakes` should take `res` from `langaugetool.check` and give you access array of mistakes (as strings).
+`languagetool.showMistakes` should take `res` from `langaugetool.check` and give you access to array of mistakes (as strings).
 
 Here's an example:
 ```js
@@ -101,7 +101,38 @@ languagetool.check(params, function(err, res){
 	if(err){
 	   console.log(err);
 	} else{
-           languagetool.createReport(res);
+       languagetool.createReport(res);
+	};
+});
+```
+
+**languagetool.getReportFrom(obj, callback)**
+
+This function doesn't take res, but callback and object with 3 properties:
+
+1. day, (Example: `"22"`)
+2. month (Example: `"09"`)
+3. year (Example: `"2018"`)
+
+Oh boy, is it this time of the day again? It's example time!
+
+```js
+languagetool.check(params, function(err, res){
+	if(err){
+	   console.log(err);
+	} else{
+	   var date = {
+		 day: "08",
+		 month: "05",
+		 year: "2005"
+	   }
+       languagetool.getReportFrom(date, function(err, foundReport){
+		   if(err){
+			  return console.log(err);
+		   } else{
+			  return console.log(foundReport);
+		   }
+	   });
 	};
 });
 ```
