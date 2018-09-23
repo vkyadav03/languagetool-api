@@ -1,6 +1,6 @@
 {
   "name": "languagetool-api",
-  "version": "1.0.15",
+  "version": "1.0.17",
   "description": "Node.JS wrapper for LanguageTool",
   "main": "index.js",
   "dependencies": {

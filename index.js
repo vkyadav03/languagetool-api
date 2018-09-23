@@ -5,7 +5,7 @@ const pkg_info   = require("./package.json"),
 	  export_obj = {};
 	  	 
 export_obj.check = function(obj, callback){
-	let url = encodeURI("https://languagetool.org/api/v2/check?language=" + obj.language + "&text=" + obj.text);
+	var url = encodeURI("https://languagetool.org/api/v2/check?language=" + obj.language + "&text=" + obj.text);
 	 if(obj.disabledRules != undefined && Array.isArray(obj.disabledRules) == true){
 		  url = url + "&disabledRules="
 		  obj.disabledRules.forEach(function(rule, ruleI){
@@ -77,7 +77,6 @@ export_obj.createReport = function(obj){
 	if(fs.existsSync("./reports") == true){
 	  if(fs.existsSync("./reports/" + filename) != true){
 	     console.log("Creating report file...");
-	     makeFile();
 	  } else{
 		 console.log("Overwriting report file...");
 	  }	
@@ -121,7 +120,3 @@ export_obj.info = function(){
 }
 
 module.exports = export_obj
-
-function newFunction(file) {
-	return JSON.parse(file);
-}
