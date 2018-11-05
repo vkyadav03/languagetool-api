@@ -1,7 +1,3 @@
-**WARNING!**
-
-This wrapper is frozen, i.e. it won't get any updates soon! You can still make pull requests or fork this repository!
-
 LanguageTool is **the best** choice, for your grammar/spell checking apps, check it out [here](https://languagetool.org/).
 
 **INSTALLATION:**
